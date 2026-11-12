@@ -1,4 +1,5 @@
 * { box-sizing: border-box; }
+::selection { background: var(--accent); color: var(--accent-ink); }
 [hidden] { display: none !important; }
 body { margin: 0; background: var(--page); color: var(--text); }
 button { font: inherit; color: inherit; cursor: pointer; }
