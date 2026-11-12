@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import PromptCard from "../components/PromptCard.astro";
+import TagButton from "../components/TagButton.astro";
+import { getCatalogue } from "../lib/catalogue";
+import { promptCount } from "../i18n";
+import { en } from "../i18n/en";
+const prompts = await getCatalogue();
+const tags = [...new Set(prompts.flatMap(prompt => prompt.tags))];
+const clientData = prompts.map(({ bytes, text, licenseBytes, ...view }) => view);
+const serialized = JSON.stringify(clientData).replace(/</g, "\\u003c");
+---
+<BaseLayout>
+  <div class="after-hours center">
+    <Header />
+    <main>
+      <Hero />
+      <section class="night-list" aria-label={en.catalogue} data-i18n-aria-label="catalogue">
+        <div class="night-list-top cluster">
+          <nav class="tag-filters cluster" aria-label={en.filterLabel} data-i18n-aria-label="filterLabel">
+            <span class="tag-label" data-i18n="tags">{en.tags}</span>
+            <TagButton tag="all" />
+            {tags.map(tag => <TagButton tag={tag} />)}
+          </nav>
+          <span class="prompt-count">{promptCount(prompts.length, "en")}</span>
+        </div>
+        {prompts.map(prompt => <PromptCard prompt={prompt} />)}
+        <p class="night-list-bottom" data-i18n="note">{en.note}</p>
+      </section>
+    </main>
+    <footer class="site-footer cluster"><a href="https://alexkutkin.com/" target="_blank" rel="noreferrer">alexkutkin.com ↗</a></footer>
+  </div>
+  <script id="catalogue-data" type="application/json" set:html={serialized} />
+</BaseLayout>
+<script>
+  import "../browser/catalogue";
+</script>

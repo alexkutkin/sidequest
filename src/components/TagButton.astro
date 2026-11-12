@@ -1,0 +1,10 @@
+---
+import type { Tag } from "../catalogue";
+import { en } from "../i18n/en";
+interface Props { tag: Tag | "all"; }
+const { tag } = Astro.props;
+---
+<button type="button" class="tag" data-tag={tag} aria-pressed={tag === "all"}>
+  {tag !== "all" && <span aria-hidden="true">#</span>}
+  <span data-i18n={tag}>{en[tag]}</span>
+</button>

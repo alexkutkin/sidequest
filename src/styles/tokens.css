@@ -1,0 +1,23 @@
+/* Warm graphite and peach, informed by Vesper. */
+:root {
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-synthesis: none;
+  color-scheme: dark;
+  --page: #1b1918;
+  --surface: #25211f;
+  --well: #201d1b;
+  --border: #453c36;
+  --border-strong: #6a5749;
+  --text: #eee6dd;
+  --body: #bdb0a4;
+  --muted: #aa9a8d;
+  --accent: #ffc799;
+  --accent-ink: #302217;
+  --tag-bg: #403127;
+  --tag-text: #ddc3ae;
+  --content-max: 1248px;
+  --page-margin: 54px;
+}
+@media (max-width: 1050px) { :root { --page-margin: 32px; } }
+@media (max-width: 720px) { :root { --page-margin: 24px; } }
+@media (max-width: 500px) { :root { --page-margin: 19px; } }

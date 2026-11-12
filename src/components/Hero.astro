@@ -1,0 +1,19 @@
+---
+import Icon from "./Icon.astro";
+import { en } from "../i18n/en";
+import { sitePath } from "../site";
+const llmsUrl = new URL(sitePath("llms.txt"), Astro.site).href;
+---
+<section class="night-hero">
+  <div>
+    <p class="eyebrow" data-i18n="eyebrow">{en.eyebrow}</p>
+    <h1><span data-i18n="title">{en.title}</span><br /><span class="title-accent" data-i18n="titleAccent">{en.titleAccent}</span></h1>
+    <p class="night-intro" data-i18n="intro">{en.intro}</p>
+  </div>
+  <aside class="night-agent" id="agent-instructions">
+    <h2 data-i18n="agentTitle">{en.agentTitle}</h2>
+    <p data-i18n="agentHint">{en.agentHint}</p>
+    <div class="agent-router" lang="en" role="note" aria-label={en.agentLabel} data-i18n-aria-label="agentLabel" data-llms-path={sitePath("llms.txt")}>{en.router.replace("{url}", llmsUrl)}</div>
+    <button type="button" class="primary-button" data-copy-agent><Icon name="copy" /><span data-i18n="agentAction">{en.agentAction}</span></button>
+  </aside>
+</section>

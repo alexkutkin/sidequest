@@ -1,0 +1,14 @@
+/* Small composition primitives following https://every-layout.dev. */
+.center {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--page-margin);
+}
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cluster-space, 1rem);
+}
+.stack > * + * { margin-block-start: var(--stack-space, 0.4rem); }

@@ -1,0 +1,13 @@
+---
+import { en } from "../i18n/en";
+import { sitePath } from "../site";
+---
+<header class="night-header cluster">
+  <a class="brand" href={sitePath()} aria-label="Sidequest">
+    <img class="brand-mark" src={sitePath("sidequest-mark.svg")} width="36" height="36" alt="" />Sidequest
+  </a>
+  <div class="language cluster" aria-label={en.languageLabel} data-i18n-aria-label="languageLabel">
+    <button type="button" data-language="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+    <button type="button" data-language="ru" lang="ru" aria-label="Русский" aria-pressed="false">RU</button>
+  </div>
+</header>

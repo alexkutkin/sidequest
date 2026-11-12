@@ -1,0 +1,25 @@
+---
+import "../styles/tokens.css";
+import "../styles/primitives.css";
+import "../styles/global.css";
+import "../styles/catalogue.css";
+import { en } from "../i18n/en";
+import { sitePath } from "../site";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content={en.intro} />
+    <title>{en.pageTitle}</title>
+    <link rel="icon" href={sitePath("sidequest-mark.svg")} type="image/svg+xml" />
+    <link rel="canonical" href={new URL(sitePath(), Astro.site)} />
+    <link rel="describedby" href={sitePath("llms.txt")} type="text/plain" />
+  </head>
+  <body>
+    <slot />
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>

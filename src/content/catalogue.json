@@ -1,0 +1,54 @@
+[
+  {
+    "id": "state-machines",
+    "order": 1,
+    "author": "Alex Kutkin",
+    "tags": ["analysis", "stateMachines"],
+    "content": {
+      "en": {
+        "title": "Find hidden state machines",
+        "description": "Trace the flags and async flows. Propose a simpler state model before changing the code.",
+        "summary": "The agent follows requirements, call sites and asynchronous flows to find the states hidden in flags and conventions. It separates reachable behaviour from assumptions, checks whether the process can be simplified, and chooses the smallest model that fits. An explicit state machine is only one possible outcome.",
+        "outcome": "A proposed model, the code it would replace, and checks for success, failure, concurrency and changes of context. The task stops at the design, before implementation."
+      },
+      "ru": {
+        "title": "Найти неявные машины состояний",
+        "description": "Разобраться во флагах и асинхронных процессах. Предложить модель проще, прежде чем менять код.",
+        "summary": "Агент изучает требования, места вызовов и асинхронные процессы, чтобы найти состояния, скрытые во флагах и соглашениях. Отделяет достижимые сценарии от предположений, проверяет, можно ли упростить сам процесс, и выбирает минимальную подходящую модель. Явная машина состояний может оказаться одним из решений.",
+        "outcome": "Предложенная модель, список заменяемого кода и проверки сценариев успеха, ошибок, конкуренции и смены контекста. Работа заканчивается на дизайне, до реализации."
+      }
+    },
+    "source": null
+  },
+  {
+    "id": "untangle-codebase",
+    "order": 2,
+    "author": "caldoai / Maze",
+    "tags": ["refactoring", "architecture"],
+    "content": {
+      "en": {
+        "title": "Untangle a codebase",
+        "description": "Bring related code together, remove needless connections and verify the refactor.",
+        "summary": "The agent looks for code that should change together but lives apart, unnecessary dependencies, and abstractions that do no useful work. It records the problems, designs fixes that address their causes, and carries out the refactor. Before editing, it asks whether comment and test cleanup should be included.",
+        "outcome": "A refactored codebase, a decision log connecting each fix to its problems, and verification that intended behaviour is preserved. This is an implementation task and can involve substantial changes."
+      },
+      "ru": {
+        "title": "Распутать кодовую базу",
+        "description": "Собрать связанный код вместе, убрать лишние зависимости и проверить рефакторинг.",
+        "summary": "Агент ищет код, который должен меняться вместе, но находится в разных местах, лишние зависимости и бесполезные абстракции. Записывает проблемы, проектирует исправления их причин и проводит рефакторинг. До изменений уточняет, нужно ли также почистить комментарии и тесты.",
+        "outcome": "Переработанная кодовая база, журнал решений со связью каждого исправления с найденными проблемами и проверка сохранения поведения. Задание включает реализацию и может потребовать существенных изменений."
+      }
+    },
+    "source": {
+      "kind": "github",
+      "owner": "caldoai",
+      "repo": "skills",
+      "path": "skills/untangle-codebase/SKILL.md",
+      "ref": "main",
+      "revision": "f3cf47774975a7d9fca45730babf4ff7ad765ada",
+      "savedAt": "2026-11-12",
+      "license": { "path": "LICENSE", "file": "untangle-codebase.LICENSE.txt" },
+      "update": { "state": "current" }
+    }
+  }
+]
