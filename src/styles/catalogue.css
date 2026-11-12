@@ -23,7 +23,7 @@
 .night-list-top { justify-content: space-between; gap: 1.25rem; margin-bottom: 0.875rem; }
 .tag-filters { gap: 0.4375rem; }
 .tag-label { font: var(--text-caption) Consolas, monospace; color: var(--muted); margin-right: 0.3125rem; }
-.tag { display: inline-flex; align-items: center; gap: 0.1875rem; padding: 0.25rem var(--space-xs); border: 1px solid var(--border); border-radius: 0.1875rem; background: transparent; color: var(--tag-text); font: var(--text-caption)/1.5 Consolas, monospace; min-inline-size: 0; max-inline-size: 100%; }
+.tag { display: inline-flex; align-items: center; gap: 0.1875rem; padding: 0.25rem var(--space-xs); border: 1px solid var(--border); border-radius: 0.1875rem; background: transparent; color: var(--tag-text); font: var(--text-caption)/1.5 Consolas, monospace; min-block-size: 1.5rem; min-inline-size: 0; max-inline-size: 100%; }
 .tag > span[aria-hidden] { color: var(--muted); flex-shrink: 0; }
 .tag > [data-i18n] { min-inline-size: 0; overflow-wrap: anywhere; }
 .tag:hover { background: #362a23; border-color: var(--border-strong); }
