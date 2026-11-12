@@ -36,4 +36,4 @@ If a source disappears or gains scripts or supporting-file dependencies, the cat
 
 [Untangle a codebase](src/content/prompts/untangle-codebase.md) by caldoai / Maze is included under its [MIT license](src/content/licenses/untangle-codebase.LICENSE.txt).
 
-The site is not published yet. See the [release plan](docs/plan.md).
+License: [MIT](LICENSE).
