@@ -16,14 +16,14 @@ export const GET: APIRoute = async ({ site }) => {
     ...prompts.map(prompt => {
       const { title, description, outcome } = prompt.content.en;
       const source = prompt.source;
-      const attribution = source ? ` Original: ${prompt.sourceUrl}. Saved: ${source.savedAt}; revision: ${source.revision}.` : "";
+      const attribution = source ? ` Original: ${source.originalUrl}. Saved: ${source.savedAt}; revision: ${source.revision}.` : "";
       const status = source && source.update.state !== "current" ? ` ${en[source.update.state]} ${en[source.update.reason]} Checked: ${source.update.checkedAt}.` : "";
       return `- [${title}](${new URL(prompt.rawPath, site)}): ${prompt.author}. ${description} ${outcome}${attribution}${status}`;
     }),
     "",
     "## Optional",
     "",
-    ...prompts.filter(prompt => prompt.licensePath).map(prompt => `- [${prompt.content.en.title}: license](${new URL(prompt.licensePath!, site)}): license for the saved third-party skill.`),
+    ...prompts.flatMap(prompt => prompt.source ? [`- [${prompt.content.en.title}: license](${new URL(prompt.source.license.rawPath, site)}): license for the saved third-party skill.`] : []),
     "",
   ];
   return new Response(lines.join("\n"), { headers: { "Content-Type": "text/plain; charset=utf-8" } });

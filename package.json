@@ -6,15 +6,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "pretypecheck": "astro sync",
-    "typecheck": "tsc --noEmit",
-    "sources:check": "node scripts/update-sources.mjs",
-    "sources:update": "node scripts/update-sources.mjs --write"
+    "typecheck": "astro check",
+    "sources:check": "node scripts/update-sources.ts",
+    "sources:update": "node scripts/update-sources.ts --write"
   },
   "dependencies": {
-    "astro": "7.4.2"
+    "astro": "7.4.2",
+    "mdast-util-from-markdown": "^2.1.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.12",
     "@types/node": "^24.0.0",
     "typescript": "6.0.3"
   }

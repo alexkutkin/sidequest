@@ -4,12 +4,14 @@ import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
 import PromptCard from "../components/PromptCard.astro";
 import TagButton from "../components/TagButton.astro";
+import Localized from "../components/Localized.astro";
+import type { ClientPrompt } from "../catalogue";
 import { getCatalogue } from "../lib/catalogue";
-import { promptCount } from "../i18n";
-import { en } from "../i18n/en";
+import { localizedLabel, promptCount } from "../i18n";
+import { defaultLanguage } from "../i18n/languages";
 const prompts = await getCatalogue();
 const tags = [...new Set(prompts.flatMap(prompt => prompt.tags))];
-const clientData = prompts.map(({ bytes, text, licenseBytes, ...view }) => view);
+const clientData: ClientPrompt[] = prompts.map(({ id, tags, content, rawPath }) => ({ id, tags, content, rawPath }));
 const serialized = JSON.stringify(clientData).replace(/</g, "\\u003c");
 ---
 <BaseLayout>
@@ -17,17 +19,17 @@ const serialized = JSON.stringify(clientData).replace(/</g, "\\u003c");
     <Header />
     <main>
       <Hero />
-      <section class="night-list" aria-label={en.catalogue} data-i18n-aria-label="catalogue">
+      <section class="night-list" {...localizedLabel("catalogue")}>
         <div class="night-list-top cluster">
-          <nav class="tag-filters cluster" aria-label={en.filterLabel} data-i18n-aria-label="filterLabel">
-            <span class="tag-label" data-i18n="tags">{en.tags}</span>
+          <nav class="tag-filters cluster" {...localizedLabel("filterLabel")}>
+            <Localized class="tag-label" message="tags" />
             <TagButton tag="all" />
             {tags.map(tag => <TagButton tag={tag} />)}
           </nav>
-          <span class="prompt-count">{promptCount(prompts.length, "en")}</span>
+          <span id="prompt-count" class="prompt-count">{promptCount(prompts.length, defaultLanguage)}</span>
         </div>
         {prompts.map(prompt => <PromptCard prompt={prompt} />)}
-        <p class="night-list-bottom" data-i18n="note">{en.note}</p>
+        <Localized as="p" class="night-list-bottom" message="note" />
       </section>
     </main>
     <footer class="site-footer cluster"><a href="https://alexkutkin.com/" target="_blank" rel="noreferrer">alexkutkin.com ↗</a></footer>

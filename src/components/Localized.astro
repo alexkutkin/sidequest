@@ -1,0 +1,11 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { defaultDictionary, type CopyKey } from "../i18n";
+
+type Props = HTMLAttributes<"span"> & {
+  as?: "span" | "p" | "h2" | "h3";
+  message: CopyKey;
+};
+const { as: Element = "span", message, ...attributes } = Astro.props;
+---
+<Element {...attributes} data-i18n={message}>{defaultDictionary[message]}</Element>

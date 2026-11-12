@@ -19,15 +19,19 @@ npm run build
 npm run preview -- --host 127.0.0.1
 ```
 
-Verification uses typechecking, building and direct browser inspection. This repository does not use automated tests or a test harness.
+Verification uses typechecking, building and direct browser inspection. The typecheck command runs [Astro's checker](https://docs.astro.build/en/guides/typescript/) so it covers `.astro` templates as well as TypeScript. This repository does not use automated tests or a test harness.
 
 Cards open independently. Summary and full-text panels share a [CSS Grid transition](https://web.dev/articles/css-animated-grid-layouts), which handles changing content heights without measurements or animation timers. Collapsed panels are [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert); the controls expose `aria-expanded` and `aria-controls` following the [WAI accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/). Transitions respect the [reduced-motion preference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion).
+
+Browser elements are bound once. Each card owns its reading state; language changes and filtering have separate updates. Opening a card does not retranslate the page or update other cards. The browser receives only the catalogue fields it uses.
+
+Layout and typography use font-relative sizes following [Every Layout's units guidance](https://every-layout.dev/rudiments/units/) and the main site's CSS conventions. Thin borders and focus outlines keep pixel widths.
 
 ## Content
 
 `src/content/catalogue.json` holds the order, authors, tags, EN/RU descriptions and source metadata. Original English instructions live in `src/content/prompts/`; imported instructions keep their original text, including frontmatter. Licenses live in `src/content/licenses/`.
 
-Astro validates catalogue metadata and generates the page, `/sidequest/llms.txt`, direct `/sidequest/prompts/<id>.md` files and license endpoints from the saved content. UI language changes on the current URL and is remembered separately from the main site's language.
+Astro and the source updater share the schema in `src/catalogue.ts` and the file layout in `src/lib/catalogue-storage.ts`. Astro generates the page, `/sidequest/llms.txt`, direct `/sidequest/prompts/<id>.md` files and license endpoints from the saved content. UI language changes on the current URL and is remembered separately from the main site's language.
 
 To add a prompt, save its Markdown, add its metadata with a unique ID and order, and include both sets of descriptions. For an imported skill, also record its GitHub path, ref, exact commit revision, snapshot date and license. Use only self-contained text. Review the skill folder and instructions for supporting-file dependencies.
 
@@ -43,7 +47,7 @@ npm run sources:update
 
 The default command reads GitHub and reports changes without writing files. `sources:update` saves eligible updates and source status. Both commands can be limited to one imported prompt ID. An optional `GITHUB_TOKEN` environment variable raises the GitHub API rate limit.
 
-The updater reads a fixed commit, inspects the skill folder, checks relative Markdown references and retrieves its license before replacing a copy. Additional resources or missing licenses stop updates; an unreachable source retains the saved copy. Dependency detection is conservative and still needs human review. Read the diff and update EN/RU descriptions before publishing. No upstream requests happen when visitors load the site or when Astro builds it.
+The updater reads a fixed commit, inspects the skill folder, checks relative Markdown references with [a CommonMark parser](https://github.com/syntax-tree/mdast-util-from-markdown) and retrieves its license before replacing a copy. Additional resources or missing licenses stop updates; an unreachable source retains the saved copy. Dependency detection is conservative and still needs human review. Read the diff and update EN/RU descriptions before publishing. No upstream requests happen when visitors load the site or when Astro builds it.
 
 ## Publication
 

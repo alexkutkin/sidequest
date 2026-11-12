@@ -3,16 +3,18 @@ import type { Prompt } from "../lib/catalogue";
 import Icon from "./Icon.astro";
 import TagButton from "./TagButton.astro";
 import Disclosure from "./Disclosure.astro";
-import { en } from "../i18n/en";
+import Localized from "./Localized.astro";
+import { defaultDictionary as t } from "../i18n";
+import { defaultLanguage } from "../i18n/languages";
 interface Props { prompt: Prompt; }
 const { prompt } = Astro.props;
 const { id, source } = prompt;
-const content = prompt.content.en;
+const content = prompt.content[defaultLanguage];
 const stopped = source && source.update.state !== "current" ? source.update : null;
 ---
 <article class="night-entry" data-prompt-id={id}>
   <div class="night-entry-line">
-    <button type="button" class="entry-hit" data-expand={id} aria-label={`${en.readSummary}: ${content.title}`} aria-expanded="false" aria-controls={`summary-${id}`} aria-describedby={`subtitle-${id}`}></button>
+    <button type="button" class="entry-hit" data-expand aria-label={`${t.readSummary}: ${content.title}`} aria-expanded="false" aria-controls={`summary-${id}`} aria-describedby={`subtitle-${id}`}></button>
     <span class="night-number">{String(prompt.order).padStart(2, "0")}</span>
     <div class="night-entry-main">
       <h2 class="entry-title" data-content="title">{content.title}</h2>
@@ -22,30 +24,30 @@ const stopped = source && source.update.state !== "current" ? source.update : nu
         <span class="entry-byline">{prompt.author}</span>
       </div>
     </div>
-    <span class="read-label" aria-hidden="true"><span data-summary-label>{en.readSummary}</span><span data-closed-icon><Icon name="chevron" /></span><span data-open-icon hidden><Icon name="close" /></span></span>
+    <span class="read-label" aria-hidden="true"><span data-summary-label>{t.readSummary}</span><span data-closed-icon><Icon name="chevron" /></span><span data-open-icon hidden><Icon name="close" /></span></span>
   </div>
   <Disclosure id={`summary-${id}`}>
     <div class="night-expanded">
       <section class="entry-summary">
-        <h3 data-i18n="summary">{en.summary}</h3>
+        <Localized as="h3" message="summary" />
         <p data-content="summary">{content.summary}</p>
         <div class="entry-outcome">
-          <h3 data-i18n="outcome">{en.outcome}</h3>
+          <Localized as="h3" message="outcome" />
           <p data-content="outcome">{content.outcome}</p>
         </div>
       </section>
       {source && <div class="source-meta stack">
-        <p><span data-i18n="snapshot">{en.snapshot}</span> <time datetime={source.savedAt} data-date={source.savedAt}>{source.savedAt}</time><span aria-hidden="true"> · </span><span data-i18n="revision">{en.revision}</span> <a href={`https://github.com/${source.owner}/${source.repo}/blob/${source.revision}/${source.path}`} target="_blank" rel="noreferrer">{source.revision.slice(0, 7)}</a><span aria-hidden="true"> · </span><a href={prompt.licensePath ?? ""} data-i18n="license">{en.license}</a></p>
-        {stopped && <p class="source-status"><span data-i18n={stopped.state}>{en[stopped.state]}</span> <span data-i18n={stopped.reason}>{en[stopped.reason]}</span> <span data-i18n="checked">{en.checked}</span> <time datetime={stopped.checkedAt} data-date={stopped.checkedAt}>{stopped.checkedAt}</time>.</p>}
+        <p><Localized message="snapshot" /> <time datetime={source.savedAt} data-date>{source.savedAt}</time><span aria-hidden="true"> · </span><Localized message="revision" /> <a href={source.snapshotUrl} target="_blank" rel="noreferrer">{source.revision.slice(0, 7)}</a><span aria-hidden="true"> · </span><a href={source.license.rawPath}><Localized message="license" /></a></p>
+        {stopped && <p class="source-status"><Localized message={stopped.state} /> <Localized message={stopped.reason} /> <Localized message="checked" /> <time datetime={stopped.checkedAt} data-date>{stopped.checkedAt}</time>.</p>}
       </div>}
-      <button type="button" class="full-toggle" data-full={id} aria-expanded="false" aria-controls={`full-${id}`}><span data-full-label>{en.fullPrompt}</span><Icon name="chevron" /></button>
+      <button type="button" class="full-toggle" data-full aria-expanded="false" aria-controls={`full-${id}`}><span data-full-label>{t.fullPrompt}</span><Icon name="chevron" /></button>
       <Disclosure id={`full-${id}`}>
-        <pre id={`text-${id}`} lang="en">{prompt.text}</pre>
+        <pre id={`text-${id}`} data-prompt-text lang="en">{prompt.text}</pre>
       </Disclosure>
       <div class="prompt-actions cluster">
-        <button type="button" class="primary-button" data-copy-prompt={id}><Icon name="copy" /><span data-i18n="copyPrompt">{en.copyPrompt}</span></button>
-        <button type="button" class="text-button" data-copy-link={id}><Icon name="link" /><span data-i18n="copyLink">{en.copyLink}</span></button>
-        {prompt.sourceUrl && <a class="text-button" href={prompt.sourceUrl} target="_blank" rel="noreferrer"><span data-i18n="original">{en.original}</span><Icon name="diagonal" /></a>}
+        <button type="button" class="primary-button" data-copy-prompt><Icon name="copy" /><Localized message="copyPrompt" /></button>
+        <button type="button" class="text-button" data-copy-link><Icon name="link" /><Localized message="copyLink" /></button>
+        {source && <a class="text-button" href={source.originalUrl} target="_blank" rel="noreferrer"><Localized message="original" /><Icon name="diagonal" /></a>}
       </div>
     </div>
   </Disclosure>

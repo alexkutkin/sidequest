@@ -4,17 +4,18 @@ import "../styles/primitives.css";
 import "../styles/global.css";
 import "../styles/catalogue.css";
 import "../styles/disclosure.css";
-import { en } from "../i18n/en";
+import { defaultDictionary } from "../i18n";
+import { defaultLanguage } from "../i18n/languages";
 import { sitePath } from "../site";
 ---
 <!doctype html>
-<html lang="en">
+<html lang={defaultLanguage}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
-    <meta name="description" content={en.intro} />
-    <title>{en.pageTitle}</title>
+    <meta name="description" content={defaultDictionary.intro} />
+    <title>{defaultDictionary.pageTitle}</title>
     <link rel="icon" href={sitePath("sidequest-mark.svg")} type="image/svg+xml" />
     <link rel="canonical" href={new URL(sitePath(), Astro.site)} />
     <link rel="describedby" href={sitePath("llms.txt")} type="text/plain" />
