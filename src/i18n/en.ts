@@ -9,7 +9,7 @@ export const en = {
   eyebrow: "A little off the roadmap",
   title: "No tickets left?",
   titleAccent: "Take a sidequest.",
-  intro: "Self-contained prompts to find problems and improve codebases on any stack, with no installation or extra dependencies. Tokens to spare? Pick a prompt yourself, or let your agent choose.",
+  intro: "A small selection of prompts and skills for useful work on your codebase: understand how the code behaves or make it simpler. Each stands on its own and works on any stack, without installation or dependencies. Run one task and stop there if you like. Tokens to spare? Choose one yourself or let your agent pick.",
   agentTitle: "Let your agent choose.",
   agentLabel: "Agent instructions",
   agentHint: "Copy the instructions below. Your agent will review the project, suggest up to 3 prompts and start once you approve.",

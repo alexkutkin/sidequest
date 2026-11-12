@@ -1,5 +1,6 @@
 import type { PromptView, Tag } from "../catalogue";
 import { dictionaries, promptCount, type CopyKey, type Language } from "../i18n";
+import { setDisclosure } from "./disclosure";
 
 const data = document.getElementById("catalogue-data");
 const prompts: PromptView[] = JSON.parse(data?.textContent ?? "[]");
@@ -10,9 +11,10 @@ function savedLanguage(): Language {
   catch { return "en"; }
 }
 
-const state: { language: Language; reading: { id: string; full: boolean } | null; tag: Tag | "all" } = {
+type ReadingLevel = "collapsed" | "summary" | "full";
+const state: { language: Language; reading: Map<string, ReadingLevel>; tag: Tag | "all" } = {
   language: savedLanguage(),
-  reading: null,
+  reading: new Map<string, ReadingLevel>(prompts.map(prompt => [prompt.id, "collapsed"])),
   tag: "all",
 };
 
@@ -61,8 +63,9 @@ function refresh(): void {
     const prompt = prompts.find(entry => entry.id === card.dataset.promptId);
     if (!prompt) return;
     const content = prompt.content[state.language];
-    const open = state.reading?.id === prompt.id;
-    const full = open && state.reading?.full === true;
+    const level = state.reading.get(prompt.id) ?? "collapsed";
+    const open = level !== "collapsed";
+    const full = level === "full";
     card.hidden = state.tag !== "all" && !prompt.tags.includes(state.tag);
     card.classList.toggle("is-open", open);
     card.querySelectorAll<HTMLElement>("[data-content]").forEach(element => {
@@ -74,8 +77,7 @@ function refresh(): void {
     expand?.setAttribute("aria-label", `${open ? t.hideSummary : t.readSummary}: ${content.title}`);
     const summaryLabel = card.querySelector("[data-summary-label]");
     if (summaryLabel) summaryLabel.textContent = open ? t.hideSummary : t.readSummary;
-    const expanded = card.querySelector<HTMLElement>(".night-expanded");
-    if (expanded) expanded.hidden = !open;
+    setDisclosure(document.getElementById(`summary-${prompt.id}`), open);
     const closedIcon = card.querySelector<HTMLElement>("[data-closed-icon]");
     if (closedIcon) closedIcon.hidden = open;
     const openIcon = card.querySelector<HTMLElement>("[data-open-icon]");
@@ -83,8 +85,7 @@ function refresh(): void {
     card.querySelector("[data-full]")?.setAttribute("aria-expanded", String(full));
     const fullLabel = card.querySelector("[data-full-label]");
     if (fullLabel) fullLabel.textContent = full ? t.hideFull : t.fullPrompt;
-    const text = card.querySelector<HTMLPreElement>("pre");
-    if (text) text.hidden = !full;
+    setDisclosure(document.getElementById(`full-${prompt.id}`), full);
   });
 }
 
@@ -124,19 +125,18 @@ document.addEventListener("click", event => {
   if (tag === "all" || prompts.some(prompt => prompt.tags.some(value => value === tag))) {
     const nextTag = tag as Tag | "all";
     state.tag = state.tag === nextTag ? "all" : nextTag;
-    const reading = prompts.find(prompt => prompt.id === state.reading?.id);
-    if (reading && state.tag !== "all" && !reading.tags.includes(state.tag)) state.reading = null;
     refresh();
   }
 
   const expand = button.dataset.expand;
-  if (expand) {
-    state.reading = state.reading?.id === expand ? null : { id: expand, full: false };
+  if (expand && state.reading.has(expand)) {
+    state.reading.set(expand, state.reading.get(expand) === "collapsed" ? "summary" : "collapsed");
     refresh();
   }
   const full = button.dataset.full;
-  if (full && state.reading?.id === full) {
-    state.reading.full = !state.reading.full;
+  const fullLevel = full ? state.reading.get(full) : undefined;
+  if (full && (fullLevel === "summary" || fullLevel === "full")) {
+    state.reading.set(full, fullLevel === "full" ? "summary" : "full");
     refresh();
   }
 

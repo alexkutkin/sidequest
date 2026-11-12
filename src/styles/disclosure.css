@@ -1,0 +1,12 @@
+.disclosure {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 200ms ease;
+}
+
+.disclosure[data-open="true"] { grid-template-rows: 1fr; }
+
+.disclosure > .disclosure-clip {
+  min-height: 0;
+  overflow: hidden;
+}

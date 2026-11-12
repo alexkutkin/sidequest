@@ -1,6 +1,6 @@
 # Sidequest
 
-A small catalogue of self-contained prompts for inspecting and improving a codebase. Browse the catalogue yourself or copy its routing instruction to a coding agent. The agent suggests suitable tasks and waits for approval before running them one at a time.
+A selection of prompts and skills for concrete work on a codebase. Each entry is a standalone task that needs no installation or extra dependencies. You can use one and stop there. Browse the catalogue yourself or copy its routing instruction to a coding agent. The agent suggests suitable tasks and waits for approval before running them one at a time.
 
 ## Local development
 
@@ -20,6 +20,8 @@ npm run preview -- --host 127.0.0.1
 ```
 
 Verification uses typechecking, building and direct browser inspection. This repository does not use automated tests or a test harness.
+
+Cards open independently. Summary and full-text panels share a [CSS Grid transition](https://web.dev/articles/css-animated-grid-layouts), which handles changing content heights without measurements or animation timers. Collapsed panels are [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert); the controls expose `aria-expanded` and `aria-controls` following the [WAI accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/). Transitions respect the [reduced-motion preference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion).
 
 ## Content
 

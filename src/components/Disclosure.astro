@@ -1,0 +1,10 @@
+---
+interface Props {
+  id: string;
+  open?: boolean;
+}
+const { id, open = false } = Astro.props;
+---
+<div id={id} class="disclosure" data-open={String(open)} inert={!open} aria-hidden={!open}>
+  <div class="disclosure-clip"><slot /></div>
+</div>
