@@ -29,4 +29,6 @@
 
 ## Project-Specific Rules
 
-<!-- Add project-specific instructions here. -->
+- This project is an experiment in development without automated tests.
+- Verify behavior directly in Chrome using Chrome DevTools. Typechecking and production builds are allowed.
+- Do not write tests, test fixtures, verification scripts or test harnesses, including temporary ones. Do not use TDD.
