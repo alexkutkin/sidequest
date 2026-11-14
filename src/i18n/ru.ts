@@ -8,6 +8,7 @@ export const ru: Dictionary = {
   stateMachines: "Машины состояний",
   refactoring: "Рефакторинг",
   architecture: "Архитектура",
+  testing: "Тестирование",
   eyebrow: "В сторону от дороги",
   title: "Закончились тикеты?",
   titleAccent: "Пройди сайд-квест.",

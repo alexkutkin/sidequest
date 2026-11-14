@@ -50,5 +50,26 @@
       "license": { "path": "LICENSE", "file": "untangle-codebase.LICENSE.txt" },
       "update": { "state": "current" }
     }
+  },
+  {
+    "id": "mutation-testing",
+    "order": 3,
+    "author": "Alex Kutkin",
+    "tags": ["testing"],
+    "content": {
+      "en": {
+        "title": "Check tests with deliberate bugs",
+        "description": "Introduce a few realistic faults, check whether tests catch them, and close proven gaps.",
+        "summary": "The agent picks one critical behaviour and checks its existing tests through mutation testing: small, deliberate faults in production code. It tries up to five candidates using existing tools, investigates undetected faults and improves at most three test cases. It restores the original implementation after every experiment. Equivalent changes and build failures are not evidence of effective tests.",
+        "outcome": "An evidence table showing which faults the tests caught, focused test improvements where needed, and verification that the original production code is restored. The session is limited to one module and 45 minutes; unresolved gaps are reported explicitly."
+      },
+      "ru": {
+        "title": "Проверить тесты намеренными ошибками",
+        "description": "Внести несколько правдоподобных ошибок, проверить реакцию тестов и устранить доказанные пробелы.",
+        "summary": "Агент выбирает один критичный сценарий и проверяет существующие тесты мутационным тестированием: временно вносит небольшие ошибки в рабочий код. Проверяет до пяти кандидатов имеющимися средствами, исследует незамеченные ошибки и улучшает не более трёх тестовых сценариев. После каждого опыта восстанавливает исходную реализацию. Изменения без влияния на поведение и ошибки сборки не доказывают качество тестов.",
+        "outcome": "Таблица с результатами обнаружения ошибок, точечные улучшения тестов при необходимости и подтверждение восстановления рабочего кода. Работа ограничена одним модулем и 45 минутами; оставшиеся пробелы указаны явно."
+      }
+    },
+    "source": null
   }
 ]
