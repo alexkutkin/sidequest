@@ -40,7 +40,7 @@ export const promptMetadataSchema = z.object({
   id: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   order: z.number().int().positive(),
   author: z.string().min(1),
-  tags: z.array(z.enum(["analysis", "stateMachines", "refactoring", "architecture"])).min(1),
+  tags: z.array(z.enum(["analysis", "stateMachines", "refactoring", "architecture", "testing"])).min(1),
   content: z.record(z.enum(languages), localizedContent),
   source: sourceMetadataSchema.nullable(),
 });

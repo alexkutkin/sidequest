@@ -6,6 +6,7 @@ export const en = {
   stateMachines: "State machines",
   refactoring: "Refactoring",
   architecture: "Architecture",
+  testing: "Testing",
   eyebrow: "A little off the roadmap",
   title: "No tickets left?",
   titleAccent: "Take a sidequest.",
